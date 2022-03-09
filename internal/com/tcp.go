@@ -3,6 +3,8 @@ package com
 import (
 	"bs/internal/app"
 
+	md "github.com/mitchellh/mapstructure"
+
 	"bufio"
 	"encoding/json"
 	"errors"
@@ -24,7 +26,7 @@ func handleConnections(srv *app.Service, c net.Conn) {
 	}
 	
 	// Unmarshell data to json
-	var req base
+	var req RawRequest
 	err = json.Unmarshal(jd, &req)
 	if err != nil {
 		sendError(err,c,srv)
@@ -32,13 +34,35 @@ func handleConnections(srv *app.Service, c net.Conn) {
 	}
 
 	switch req.Rtype {
+	case "LIB":
+		lb := Library{}
+		lb.Rtype = req.Rtype
+		lb.Path = req.Path
+		err = md.Decode(req.Data,&lb)
+		if err != nil {
+			sendError(err,c,srv)
+			return
+		}
+		err = Execute(lb,c)
 	case "GET":
-		gr := Get{req}
-		Execute(gr,c)
+		gr := Get{}
+		gr.Rtype = req.Rtype
+		gr.Path = req.Path
+		err = md.Decode(req.Data,&gr)
+		if err != nil {
+			sendError(err,c,srv)
+			return
+		}
+		err = Execute(gr,c)
 	case "PUT":
 		srv.Log.Debug("PUT not implemented")
 	default:
 		sendError(errors.New("Invalid Request Type"),c,srv)
+	}
+	if err != nil {
+		sendError(err,c,srv)
+	} else {
+		c.Close()
 	}
 }
 

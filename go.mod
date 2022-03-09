@@ -3,9 +3,12 @@ module bs
 go 1.17
 
 require (
+	github.com/ipfs/go-cid v0.1.0
 	github.com/ipfs/go-ipfs v0.11.0
 	github.com/ipfs/go-ipfs-config v0.18.0
+	github.com/ipfs/go-ipfs-files v0.0.9
 	github.com/ipfs/interface-go-ipfs-core v0.5.2
+	github.com/mitchellh/mapstructure v1.1.2
 	github.com/sirupsen/logrus v1.6.0
 )
 
@@ -51,7 +54,6 @@ require (
 	github.com/ipfs/go-bitswap v0.5.1 // indirect
 	github.com/ipfs/go-block-format v0.0.3 // indirect
 	github.com/ipfs/go-blockservice v0.2.1 // indirect
-	github.com/ipfs/go-cid v0.1.0 // indirect
 	github.com/ipfs/go-cidutil v0.0.2 // indirect
 	github.com/ipfs/go-datastore v0.5.1 // indirect
 	github.com/ipfs/go-ds-badger v0.3.0 // indirect
@@ -68,7 +70,6 @@ require (
 	github.com/ipfs/go-ipfs-ds-help v0.1.1 // indirect
 	github.com/ipfs/go-ipfs-exchange-interface v0.1.0 // indirect
 	github.com/ipfs/go-ipfs-exchange-offline v0.1.1 // indirect
-	github.com/ipfs/go-ipfs-files v0.0.9 // indirect
 	github.com/ipfs/go-ipfs-keystore v0.0.2 // indirect
 	github.com/ipfs/go-ipfs-pinner v0.2.1 // indirect
 	github.com/ipfs/go-ipfs-posinfo v0.0.1 // indirect
